@@ -89,9 +89,9 @@
               <div class="room_heading d-flex justify-content-between align-items-center">
                   <div class="room_heading_inner">
                       <span>$20</span>
-                      <h3>The Burger President</h3>
+                      <h3>Pizza Hut</h3>
                       <p>Great way to make your business appear trust <br> and relevant.</p>
-                      <a href="#" class="boxed-btn3">Order Now</a>
+                      <a href="{{ route('cart.index')}}" class="boxed-btn3">Order Now</a>
                   </div>
                   
               </div>
@@ -103,9 +103,9 @@
               <div class="room_heading d-flex justify-content-between align-items-center">
                   <div class="room_heading_inner">
                       <span>$20</span>
-                      <h3>The Burger President</h3>
+                      <h3>Pizza Hut</h3>
                       <p>Great way to make your business appear trust <br> and relevant.</p>
-                      <a href="#" class="boxed-btn3">Order Now</a>
+                      <a href="{{ route('cart.index')}}" class="boxed-btn3">Order Now</a>
                   </div>
               </div>
           </div>

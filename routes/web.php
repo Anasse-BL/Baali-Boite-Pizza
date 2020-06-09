@@ -44,3 +44,8 @@ Route::delete('/panier/{rowID}','CartController@destroy')->name('cart.destroy');
 
 
 Route::get('/paiement','PaiementController@index')->name('paiement.index');
+
+Route::post('paiement','PaiementController@store')->name('paiement.store');
+
+Route::get('/merci','PaiementController@thankyou')->name('paiement.thankyou');
+

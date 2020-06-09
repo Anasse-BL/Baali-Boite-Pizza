@@ -4,11 +4,14 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+
+    @yield('extra-meta')
     <title>Pizza</title>
     @yield('extra-script')
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    
     <!-- <link rel="manifest" href="site.webmanifest"> -->
     <link rel="shortcut icon" type="image/x-icon" href="images/PZ.png">
     <!-- Place favicon.ico in the root directory -->
@@ -46,6 +49,9 @@ h2 {
 
     <!-- header-start -->
     <header>
+        
+    @yield('extra-meta')
+    
         <div class="header-area ">
             <div id="sticky-header" class="main-header-area">
                 <div class="container-fluid p-0">
@@ -107,7 +113,7 @@ h2 {
                                     </ul>
                                 </div>
                                 <div class="book_btn d-none d-xl-block">
-                                    <a class="#" href="#">+212 622222222</a>
+                                    <a class="#" href="{{ route('produit.index')}}">Switch to panel admin</a>
                                 </div>
                             </div>
                         </div>
@@ -153,6 +159,10 @@ h2 {
 
 
     @yield('content')
+    
+    
+   
+    
     @yield('extra-js')
 </body>
 

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use DateTime;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
 use Stripe\PaymentIntent;
 use Gloudemans\Shoppingcart\Facades\Cart ;
+use Illuminate\Contracts\Session\Session;
 use Illuminate\Support\Arr;
 
 class PaiementController extends Controller
@@ -20,9 +23,9 @@ class PaiementController extends Controller
         Stripe::setApiKey('sk_test_HzrZlaHaHY59TMp0Ei6QNdyj00nf79gJkG');
 
         $intent = PaymentIntent::create([
-            'amount' => round(Cart::total()),
+            'amount' => round(Cart::total()*100),
             'currency' => 'usd',
-            // Verify your integration in this guide by including this parameter
+            // Verify your integration in this guide by including this parameter 
             'metadata' => ['integration_check' => 'accept_a_payment'],
           ]);
 
@@ -52,7 +55,45 @@ class PaiementController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $data = $request->json()->all();
+        $order = new Order();
+        $order->payment_intent_i=$data['paymentIntent']['id'];
+        $order->amount = $data['paymentIntent']['amount'];
+
+        $order->payment_created_at = (new DateTime())
+        ->setTimestamp($data['paymentIntent']['created'])
+        ->format('Y-m-d H:i:s');
+
+        $produits = [];
+        $i = 0;
+
+        foreach(Cart::content() as $produit){
+            $produits['produit_' . $i][]= $produit->nom;
+            $produits['produit_' . $i][]= $produit->prix;
+            $i++;
+            
+        }
+
+        $order->produits = serialize($produits);
+        $order->user_id = 15;
+        $order->save();
+
+        if($data['paymentIntent']['status']==='succeeded'){
+            Cart::destroy();
+            Session::flash('success','Votre commande a été traité avec succès');
+            return response()->json(['success' => 'Payment Intent Succeeded']);
+        }else{
+
+            return response()->json(['success' => 'Payment Intent Not Succeeded']); 
+
+        
+
+        }
+
+
+
+        
     }
 
     /**
@@ -98,5 +139,9 @@ class PaiementController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function thankyou()
+    {
+    return Session::has('success') ? view('paiement.thankyou') : redirect()->route('produits.index');
     }
 }

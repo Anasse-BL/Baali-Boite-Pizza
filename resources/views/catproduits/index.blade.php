@@ -18,12 +18,11 @@
                   <div class="main-menu  d-none d-lg-block">
                       <nav>
                   <ul id="navigation">
-                  <li><a href="#"><h3>Menu</h3> <i class="ti-angle-down"></i></a>
-                    <ul class="list-group-item list-group-horizontal ">
+                  <li><a href="#"><h3>What we serve</h3> <i class="ti-angle-down"></i></a>
+                   <!-- <ul class="list-group-item list-group-horizontal ">
                       <li class="list-group-item "> <a href="{{ route('catproduits.index')}}"><h2>Categories</h2></li>
                       <li class="list-group-item"><a href="{{ route('produits.index')}}"><h2>Products<h2></a></li>
-                    </ul>
-              </ul>
+                    </ul>-->
           </div>
       </nav>
                   

@@ -44,6 +44,11 @@
   
             <!-- Shopping cart table -->
             <div class="table-responsive">
+           <!--   <div class="room_heading_inner">-->
+             <center>
+              <a href="#" class="boxed-btn3">Vider le panier</a><br><br>
+             </center>
+            <!--  </div>-->
               <table class="table">
                 <thead>
                   <tr>
