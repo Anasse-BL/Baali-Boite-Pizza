@@ -5,3 +5,4 @@
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('client') }}'><i class='fa fa-group'aria-hidden="true"style="margin-right: 13px;"></i> Clients</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('commentaire') }}'><i class='fa fa-comment-o'style="margin-right: 13px;"></i> Commentaires</a></li>
 <li class='nav-item'><a class='nav-link' href='{{ backpack_url('formule') }}'><i class='fa fa-sticky-note-o'style="margin-right: 13px;"></i> Formules</a></li>
+<li class='nav-item'><a class='nav-link' href='{{ backpack_url('commande') }}'><i class='nav-icon fa fa-question'></i> Commandes</a></li>

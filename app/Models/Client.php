@@ -38,6 +38,11 @@ class Client extends Model
     {
         return $this->hasMany(Commentaire::class);
     }
+
+    public function Commandes()
+    {
+        return $this->hasMany(Commande::class);
+    }
     /*
     |--------------------------------------------------------------------------
     | SCOPES
