@@ -72,7 +72,7 @@
                    
                   </tr>
                 </thead>
-                <tbody>
+                               <tbody>
 
                   @foreach(Cart::content() as $produit)
                   <tr>
@@ -130,10 +130,10 @@
                 <!-- <li class="d-flex justify-content-between py-3 border-bottom">
                    <strong class="text-muted">Shipping and handling</strong><strong>$10.00</strong></li>-->
                   <li class="d-flex justify-content-between py-3 border-bottom">
-                  <strong class="text-muted">Tax</strong><strong>{{getPrice(Cart::tax())}}</strong></li>
+                  <strong class="text-muted">Tax</strong><strong>{{getPrice(Cart::tax())}}$</strong></li>
                   <li class="d-flex justify-content-between py-3 border-bottom">
                     <strong class="text-muted">Total</strong>
-                    <strong>{{getPrice(Cart::total())}}</strong></li>
+                    <strong>{{getPrice(Cart::total())}}$</strong></li>
                 </ul>
               </div>
             </div>

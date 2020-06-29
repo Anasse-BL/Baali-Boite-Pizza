@@ -26,12 +26,16 @@ Route::get('/produits/{id}','ProduitController@show')->name('produits.show');
 
 Route::resource('/catproduits','CatproduitController')->only(['index','show']);
 
+Route::resource('/formules','FormuleController')->only(['index']);
+Route::get('/formules','FormuleController@index')->name('formules.index');
+
 
 Route::get('/home', function () {
     return view('homes\home');
 });
 
 Route::post('/panier/ajouter','CartController@store')->name('cart.store');
+
 
 Route::get('/panier','CartController@index')->name('cart.index');
 
@@ -48,4 +52,5 @@ Route::get('/paiement','PaiementController@index')->name('paiement.index');
 Route::post('paiement','PaiementController@store')->name('paiement.store');
 
 Route::get('/merci','PaiementController@thankyou')->name('paiement.thankyou');
+
 

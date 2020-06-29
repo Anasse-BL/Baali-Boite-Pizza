@@ -44,26 +44,50 @@
             </div>
         
   
-      <div class="container">
-<div class="col-md-12"><h1>Régler votre paiement</h1>
-    <div class="row">
-        <div class="col-md-6">
-        <form action="{{route('paiement.store')}}" method="POST" class="my-4" id="payment-form">
-          @csrf
-          <div id="card-element">
-
+            <div class="col-md-12">
+    
+              <div class="row">
+                  <div class="col-md-6 mx-auto">
+                      <h4 class="text-center pt-5">Procéder au paiement</h4>
+                      <form action="{{ route('paiement.store') }}" method="POST" class="my-4" id="payment-form">
+                          @csrf
+                          <div class="form-group">
+                              
+                              <input type="email"name="email" class="form-control" id="email" placeholder="Enter email">
+                              <br>
+                            </div>
+                            <div class="form-row">
+                              <div class="col">
+                                <input type="text" id="ville" name="ville" class="form-control" placeholder="ville">
+                              </div>
+                              <div class="col">
+                                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Telephone">
+                              </div>
+                            </div>
+                            <br>
+                            <div class="form-group">
+                              
+                              <input type="text"  name="adresseliv" id="adresseliv" class="form-control"  placeholder="Enter votre adresse">
+                             
+                            </div>
+              
+                            
+                          
+                          <div id="card-element">
+                          <!-- Elements will create input elements here -->
+                          </div>
+          
+                          <!-- We'll put the error messages in this element -->
+                          <div id="card-errors" role="alert"></div>
+          
+                          <button class="btn btn-success btn-block mt-3" id="submit">
+                              <i class="fa fa-credit-card" aria-hidden="true"></i> Payer maintenant ({{getPrice(Cart::total())}}$)
+                          </button>
+                      </form>
+                  </div>
+              </div>
           </div>
-
-                <div id="card-errors" role="alert"></div>
-
-                <button class="btn btn-success mt-3" id="submit"  >Procéder au paiement ({{getPrice(Cart::total())}}$)</button>
-            </form>
-        </div>
-    </div>
-</div>
-  
-
-</div>
+          
 @endsection
 
 
@@ -72,7 +96,6 @@
 
 @section('extra-js')
 <script>
-
 var stripe = Stripe('pk_test_1rz84sfg56bjRS72yF6W47m000SqGFuiOF');
 var elements = stripe.elements();
 var style = {
@@ -103,10 +126,7 @@ card.addEventListener('change', ({error}) => {
     displayError.textContent = '';
   }
 });
-
-
 var submitButton = document.getElementById('submit');
-
 submitButton.addEventListener('click', function(ev) {
   ev.preventDefault();
   stripe.confirmCardPayment("{{$clientSecret}}", {
@@ -126,8 +146,16 @@ submitButton.addEventListener('click', function(ev) {
       // The payment has been processed!
       if (result.paymentIntent.status === 'succeeded') {
         var paymentIntent = result.paymentIntent;
+        var form = document.getElementById('payment-form');
                 var url = form.action;
                 var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+                var ville = document.getElementById('ville').value;
+                    
+                    
+                    var email = document.getElementById('email').value;
+                    var telephone = document.getElementById('telephone').value;
+                    
+                    var adresseliv = document.getElementById('adresseliv').value;
                 var redirect = '/merci';
                 fetch(
                     url,
@@ -140,7 +168,11 @@ submitButton.addEventListener('click', function(ev) {
                         },
                         method : 'post',
                         body: JSON.stringify({
-                            paymentIntent: paymentIntent
+                            paymentIntent: paymentIntent,
+                            ville: ville,
+                            email:email,
+                            telephone:telephone,
+                            adresseliv:adresseliv
                         })
                     }
                 ).then((data) => {
@@ -156,5 +188,3 @@ submitButton.addEventListener('click', function(ev) {
 </script> 
 
 @endsection
-
-

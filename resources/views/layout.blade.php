@@ -36,6 +36,11 @@ h3 {
 h2 {
     color:rgb(241, 2, 2)
 }
+.change {
+  background-image: url(images/cmd3.jpg); 
+  background-size: cover;
+
+}
 
 
      </style>
@@ -92,24 +97,20 @@ h2 {
                                     <ul>
                                         <li>
                                             <a href="{{ route('produits.index')}}">
-                                                <i class="fa fa-shopping-basket" aria-hidden="true" ></i>
+                                                <i class="fa fa-shopping-cart" aria-hidden="true" ></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-twitter"></i>
+                                            <a href="{{ route('formules.index')}}">
+                                                <i class="fa fa-shopping-bag"></i>
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#">
-                                                <i class="fa fa-facebook"></i>
+                                            <a href="{{ route('catproduits.index')}}">
+                                                <i class="fa fa-shopping-basket"></i>
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="#">
-                                                <i class="fa fa-google-plus"></i>
-                                            </a>
-                                        </li>
+                                       
                                     </ul>
                                 </div>
                                 <div class="book_btn d-none d-xl-block">

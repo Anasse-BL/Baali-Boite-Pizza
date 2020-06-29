@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Order;
+use App\Models\produit;
 use DateTime;
 use Illuminate\Http\Request;
 use Stripe\Stripe;
@@ -58,38 +59,53 @@ class PaiementController extends Controller
         
         $data = $request->json()->all();
         $order = new Order();
-        $order->payment_intent_i=$data['paymentIntent']['id'];
-        $order->amount = $data['paymentIntent']['amount'];
+        $order->ville=$data['ville'];
+         $order->email=$data['email'];
+         $order->telephone=$data['telephone'];
+         $order->adresseliv=$data['adresseliv'];
+        // $order->payment_intent_i=$data['paymentIntent']['id'];
+        // $order->amount = $data['paymentIntent']['amount'];
 
-        $order->payment_created_at = (new DateTime())
-        ->setTimestamp($data['paymentIntent']['created'])
-        ->format('Y-m-d H:i:s');
-
-        $produits = [];
-        $i = 0;
-
-        foreach(Cart::content() as $produit){
-            $produits['produit_' . $i][]= $produit->nom;
-            $produits['produit_' . $i][]= $produit->prix;
-            $i++;
-            
-        }
-
-        $order->produits = serialize($produits);
-        $order->user_id = 15;
-        $order->save();
-
-        if($data['paymentIntent']['status']==='succeeded'){
-            Cart::destroy();
-            Session::flash('success','Votre commande a été traité avec succès');
-            return response()->json(['success' => 'Payment Intent Succeeded']);
-        }else{
-
-            return response()->json(['success' => 'Payment Intent Not Succeeded']); 
+         $order->payment_created_at = (new DateTime())
+         ->setTimestamp($data['paymentIntent']['created'])
+         ->format('Y-m-d H:i:s');
 
         
 
+        // $order->produits = 'Produit';
+        // $order->user_id = 15;
+       
+        $order->payment_intent_id=$data['paymentIntent']['id'];
+        $order->amount = $data['paymentIntent']['amount'];
+      //  $order->produits = 'Produit';
+        $order->user_id = 15;
+        $produits = [];
+        $i = 0;
+
+        foreach (Cart::content() as $produit) {
+            $produits['produit_' . $i][] = $produit->model->nom;
+            $produits['produit_' . $i][] = $produit->model->prix;
+           
+            $i++;
         }
+
+        $order->produits= serialize($produits);
+
+
+
+        $order->save();
+
+        // if($data['paymentIntent']['status']==='succeeded'){
+        //     Cart::destroy();
+        //     Session::flash('success','Votre commande a été traité avec succès');
+        //     return response()->json(['success' => 'Payment Intent Succeeded']);
+        // }else{
+
+        //     return response()->json(['success' => 'Payment Intent Not Succeeded']); 
+
+        
+
+        // }
 
 
 
@@ -140,8 +156,8 @@ class PaiementController extends Controller
     {
         //
     }
-    public function thankyou()
+    public function thankyou(Request $request)
     {
-    return Session::has('success') ? view('paiement.thankyou') : redirect()->route('produits.index');
+        return view("paiement.thankyou");
     }
 }

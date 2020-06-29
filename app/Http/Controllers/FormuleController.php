@@ -3,11 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Produit;
-use Gloudemans\Shoppingcart\Facades\Cart ;
+use App\Formule;
 
-
-class CartController extends Controller
+class FormuleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +14,9 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('cart.index');
+        return view('formules.index',[
+            'formules'=> Formule::all()
+        ]);
     }
 
     /**
@@ -37,14 +37,8 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        Cart::add($request->id, $request->nom,1,$request->prix)
-       ->associate('App\Produit');
-
-       return redirect()->route('produits.index')->with('success','Le Produit a bien ajouté');
-
-
+        //
     }
-    
 
     /**
      * Display the specified resource.
@@ -86,9 +80,8 @@ class CartController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($rowID)
+    public function destroy($id)
     {
-        Cart::remove($rowID);
-        return back()->with('success','Le Produit a été supprimé');
+        //
     }
 }

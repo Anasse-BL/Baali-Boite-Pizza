@@ -17,8 +17,14 @@ class CreateOrdersTable extends Migration
             $table->bigIncrements('id');
             $table->string('payment_intent_id')->unique();
             $table->integer('amount');
+            
+            $table->timestamp('payment_created_at')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->text('produits');
             $table->unsignedBigInteger('user_id');
+            $table->string('adresseliv')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('ville')->nullable();
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }
